@@ -1,0 +1,6 @@
+div.warning-alert {
+  padding: 30px;
+  background-color: yellow;
+  margin: 30px 60px 30px 60px;
+  border-radius: 10px;
+}
