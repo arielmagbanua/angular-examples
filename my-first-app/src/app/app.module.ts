@@ -7,10 +7,11 @@ import { ServersComponent } from './servers/servers.component';
 import { WarningAlertComponent } from './warning-alert/warning-alert.component';
 import { SuccessAlertComponent } from './success-alert/success-alert.component';
 import {FormsModule} from '@angular/forms';
+import { UsernameResetComponent } from './username-reset/username-reset.component';
 
 @NgModule({
   declarations: [
-    AppComponent, ServerComponent, ServersComponent, WarningAlertComponent, SuccessAlertComponent
+    AppComponent, ServerComponent, ServersComponent, WarningAlertComponent, SuccessAlertComponent, UsernameResetComponent
   ],
   imports: [
     BrowserModule,
