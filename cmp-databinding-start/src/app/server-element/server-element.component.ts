@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./server-element.component.css']
 })
 export class ServerElementComponent implements OnInit {
+  // tslint:disable-next-line:no-input-rename
   @Input('srvElement')
   element: {
     type: string,
