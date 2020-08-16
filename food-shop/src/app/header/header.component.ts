@@ -11,13 +11,11 @@ import {
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  @Output()
-  featureSelected = new EventEmitter<string>();
+  @Output() featureSelected = new EventEmitter<string>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSelect(feature: string): void {
     this.featureSelected.emit(feature);
