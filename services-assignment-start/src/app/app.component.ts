@@ -22,12 +22,4 @@ export class AppComponent implements OnInit {
   get toActiveCount(): number {
     return this.counterService.toActiveCount;
   }
-
-  get activeUsers(): string [] {
-    return this.usersService.activeUsers;
-  }
-
-  get inactiveUsers(): string [] {
-    return this.usersService.inactiveUsers;
-  }
 }
