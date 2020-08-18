@@ -6,7 +6,8 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/recipes'
+    redirectTo: '/recipes',
+    pathMatch: 'full'
   },
   {
     path: 'recipes',
