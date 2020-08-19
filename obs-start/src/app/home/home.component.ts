@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {interval, Observable, Subscription} from 'rxjs';
-import {error} from '@angular/compiler/src/util';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { interval, Observable, Subscription } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    this.firstObsSubscription = customIntervalObservable.subscribe((data) => {
+    const ops = customIntervalObservable.pipe(filter((data: number) => {
+      return data > 0;
+    }), map((data: number) => {
+      return 'Round ' + (data + 1);
+    }));
+
+    this.firstObsSubscription = ops.subscribe((data) => {
       console.log(data);
     }, (err: Error) => {
       console.log(err.message);
