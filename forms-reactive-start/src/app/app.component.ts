@@ -19,9 +19,7 @@ export class AppComponent implements OnInit {
         'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmails.bind(this)),
       }),
       'gender': new FormControl('male'),
-      'hobbies': new FormArray([
-        new FormControl(null)
-      ])
+      'hobbies': new FormArray([])
     });
 
     // this.signupForm.valueChanges.subscribe((value) => {
