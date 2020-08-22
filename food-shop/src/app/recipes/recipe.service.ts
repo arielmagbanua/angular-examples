@@ -33,15 +33,15 @@ export class RecipeService {
     ),
   ];
 
+  constructor(private slService: ShoppingListService) { }
+
   get recipeList(): Recipe[] {
     return this.recipes.slice();
   }
 
-  getRecipe(id: number): Recipe {
-    return this.recipes[id];
+  getRecipe(index: number): Recipe {
+    return this.recipes[index];
   }
-
-  constructor(private slService: ShoppingListService) { }
 
   addIngredientsToShoppingList(ingredients: Ingredient[]): void {
     this.slService.addIngredients(ingredients);
@@ -54,6 +54,11 @@ export class RecipeService {
 
   updateRecipe(index: number, newRecipe: Recipe): void {
     this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number): void {
+    this.recipes.splice(index, 1);
     this.recipesChanged.next(this.recipes.slice());
   }
 }
