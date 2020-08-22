@@ -38,7 +38,8 @@ export class RecipeDetailComponent implements OnInit {
     // await this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});
   }
 
-  onDeleteRecipe(): void {
+  async onDeleteRecipe(): Promise<void> {
     this.recipeService.deleteRecipe(this.id);
+    await this.router.navigate(['/recipes']);
   }
 }
