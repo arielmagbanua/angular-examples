@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,25 +12,45 @@ export class AppComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchPosts();
+  }
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
     this.http
       .post(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        'https://udemy-training-af9d1.firebaseio.com/posts.json',
         postData
       )
-      .subscribe(responseData => {
+      .subscribe((responseData) => {
         console.log(responseData);
       });
   }
 
   onFetchPosts() {
     // Send Http request
+    this.fetchPosts();
   }
 
   onClearPosts() {
     // Send Http request
+  }
+
+  private fetchPosts() {
+    this.http.get('https://udemy-training-af9d1.firebaseio.com/posts.json')
+      .pipe(map((responseData) => {
+        const postsArray = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            postsArray.push({...responseData[key], id: key});
+          }
+        }
+
+        return postsArray;
+      }))
+      .subscribe((posts) => {
+        console.log(posts);
+      });
   }
 }
