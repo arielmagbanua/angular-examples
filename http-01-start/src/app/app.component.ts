@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from './post.model';
-import {PostsService} from './posts.service';
-import {generateErrorMessage} from 'codelyzer/angular/styles/cssLexer';
-import {Subscription} from 'rxjs';
+import { PostsService } from './posts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
