@@ -37,4 +37,8 @@ export class PostsService {
         return postsArray;
       }));
   }
+
+  deletePosts() {
+    return this.http.delete('https://udemy-training-af9d1.firebaseio.com/posts.json');
+  }
 }
