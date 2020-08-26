@@ -21,6 +21,7 @@ export interface AuthResponseData {
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  private expirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -45,12 +46,12 @@ export class AuthService {
     );
   }
 
-  private handleAuthentication(
+  private async handleAuthentication(
     email: string,
     userId: string,
     token: string,
     expiresIn: number
-  ): void {
+  ): Promise<void> {
     const expirationDate = new Date();
     expirationDate.setSeconds(expirationDate.getSeconds() + expiresIn);
     // const expirationDate = new Date(new Date().getTime() + expiresIn);
@@ -61,6 +62,7 @@ export class AuthService {
       expirationDate
     );
     this.user.next(user);
+    await this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
@@ -74,8 +76,8 @@ export class AuthService {
       }
     ).pipe(
       catchError(this.handleError),
-      tap((resData) => {
-        this.handleAuthentication(
+      tap(async (resData) => {
+        await this.handleAuthentication(
           resData.email,
           resData.localId,
           resData.idToken,
@@ -85,7 +87,7 @@ export class AuthService {
     );
   }
 
-  autoLogin(): void {
+  async autoLogin(): Promise<void> {
     const userData: {
       email: string,
       id: string,
@@ -102,16 +104,30 @@ export class AuthService {
       userData._token,
       new Date(userData._tokenExpirationDate)
     );
-console.log(loadedUser.token);
+
     if (loadedUser.token) {
-      console.log('Auto logged in!');
       this.user.next(loadedUser);
+      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+      await this.autoLogout(expirationDuration);
     }
   }
 
-  logout(): void {
+  async autoLogout(expirationDuration: number): Promise<void> {
+    this.expirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
+  async logout(): Promise<void> {
     this.user.next(null);
-    this.router.navigate(['/auth']);
+    await this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+
+    if (this.expirationTimer) {
+      clearTimeout(this.expirationTimer);
+    }
+
+    this.expirationTimer = null;
   }
 
   protected handleError(errorRes: HttpErrorResponse): Observable<never> {
