@@ -51,15 +51,17 @@ export class AuthService {
     token: string,
     expiresIn: number
   ): void {
-    const expirationDate = new Date(new Date().getTime() + expiresIn);
+    const expirationDate = new Date();
+    expirationDate.setSeconds(expirationDate.getSeconds() + expiresIn);
+    // const expirationDate = new Date(new Date().getTime() + expiresIn);
     const user = new User(
       email,
       userId,
       token,
       expirationDate
     );
-
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   login(userEmail: string, userPw: string): Observable<AuthResponseData> {
@@ -81,6 +83,30 @@ export class AuthService {
         );
       })
     );
+  }
+
+  autoLogin(): void {
+    const userData: {
+      email: string,
+      id: string,
+      _token: string,
+      _tokenExpirationDate: string
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) {
+      return;
+    }
+
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      new Date(userData._tokenExpirationDate)
+    );
+console.log(loadedUser.token);
+    if (loadedUser.token) {
+      console.log('Auto logged in!');
+      this.user.next(loadedUser);
+    }
   }
 
   logout(): void {
