@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
-    path: 'shopping-list',
+    path: '',
     component: ShoppingListComponent
   },
 ];
