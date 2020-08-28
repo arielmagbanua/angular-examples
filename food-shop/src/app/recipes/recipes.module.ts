@@ -21,10 +21,10 @@ import { SharedModule } from '../shared/shared.module';
     RecipeEditComponent,
   ],
   imports: [
-    SharedModule,
     RouterModule,
     ReactiveFormsModule,
-    RecipesRoutingModule
+    RecipesRoutingModule,
+    SharedModule
   ]
 })
 export class RecipesModule { }
