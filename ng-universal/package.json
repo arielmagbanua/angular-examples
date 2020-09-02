@@ -22,6 +22,7 @@
     "@ngrx/effects": "^8.0.0-beta.2",
     "@ngrx/router-store": "^8.0.0-beta.2",
     "@ngrx/store": "^8.0.0-beta.2",
+    "@nguniversal/express-engine": "^8.2.6",
     "bootstrap": "3.3.7",
     "core-js": "^3.1.2",
     "rxjs": "^6.0.0",
