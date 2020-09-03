@@ -7,9 +7,10 @@ import { PostComponent } from './post/post.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { UserComponent } from './user/user.component';
+import { ReversePipe } from './shared/reverse.pipe';
 
 @NgModule({
-  declarations: [AppComponent, PostComponent, UserComponent],
+  declarations: [AppComponent, PostComponent, UserComponent, ReversePipe],
   imports: [BrowserModule, HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   providers: [],
   bootstrap: [AppComponent]
