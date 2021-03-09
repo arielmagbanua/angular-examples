@@ -12,7 +12,13 @@ import { DirectivesComponent } from './directives/directives.component';
 
 @NgModule({
   declarations: [
-    AppComponent, ServerComponent, ServersComponent, WarningAlertComponent, SuccessAlertComponent, UsernameResetComponent, DirectivesComponent
+    AppComponent,
+    ServerComponent,
+    ServersComponent,
+    WarningAlertComponent,
+    SuccessAlertComponent,
+    UsernameResetComponent,
+    DirectivesComponent
   ],
   imports: [
     BrowserModule,
